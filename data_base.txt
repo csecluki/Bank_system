@@ -1,0 +1,31 @@
+DROP DATABASE IF EXISTS bank;
+
+CREATE DATABASE bank;
+USE bank;
+
+CREATE TABLE account(
+client_id INT(4) NOT NULL AUTO_INCREMENT,
+name VARCHAR(32) NOT NULL,
+pswd VARCHAR(32) NOT NULL,
+money INT(9) NOT NULL,
+PRIMARY KEY (client_id)
+);
+
+ALTER TABLE account AUTO_INCREMENT = 1001;
+
+CREATE TABLE transaction(
+transaction_id MEDIUMINT(6) NOT NULL AUTO_INCREMENT,
+sender_id INT(4) NOT NULL,
+receiver_id INT(4) NOT NULL,
+amount INT(9) NOT NULL,
+message TEXT NOT NULL,
+PRIMARY KEY (transaction_id),
+FOREIGN KEY (sender_id) REFERENCES account(client_id),
+FOREIGN KEY (receiver_id) REFERENCES account(client_id)
+);
+
+ALTER TABLE transaction AUTO_INCREMENT = 100001;
+
+INSERT INTO account (name, pswd, money) VALUES ('Ben', 'qwer', 0)
+INSERT INTO account (name, pswd, money) VALUES ('Dan', 'asdf', 0)
+INSERT INTO account (name, pswd, money) VALUES ('Ron', 'zxcv', 0)
