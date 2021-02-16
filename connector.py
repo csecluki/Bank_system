@@ -1,8 +1,8 @@
 import mysql.connector
 
 bank_data_base = mysql.connector.connect(
-    host="localhost",
-    user="root",
+    host="",
+    user="",
     database="bank"
 )
 
