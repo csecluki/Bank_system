@@ -25,7 +25,3 @@ FOREIGN KEY (receiver_id) REFERENCES account(client_id)
 );
 
 ALTER TABLE transaction AUTO_INCREMENT = 100001;
-
-INSERT INTO account (name, pswd, money) VALUES ('Ben', 'qwer', 0)
-INSERT INTO account (name, pswd, money) VALUES ('Dan', 'asdf', 0)
-INSERT INTO account (name, pswd, money) VALUES ('Ron', 'zxcv', 0)
