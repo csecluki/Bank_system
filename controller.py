@@ -17,6 +17,7 @@ class Controller:
         self.new_account = NewAccount(self.window, self)
         self.user_menu = UserMenu(self.window, self)
         self.transfer_menu = TransferMenu(self.window, self)
+        self.account_created = AccountCreated(self.window, self)
 
         self.stack = []
         self.switch_to("main_menu")
@@ -44,6 +45,8 @@ class Controller:
             self.user_menu.open(self.active_user)
         elif self.stack[-1] == "transfer_menu":
             self.transfer_menu.open()
+        elif self.stack[-1] == "account_created":
+            self.account_created.open(args[0])
         else:
             self.window.destroy()
             quit()

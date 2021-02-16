@@ -14,6 +14,10 @@ def new_client(name, pswd, money=0):
                 f"VALUES ('{name}', '{pswd}', {money})"
     cursor.execute(sql_query)
     bank_data_base.commit()
+    sql_query = "SELECT MAX(client_id) FROM account"
+    cursor.execute(sql_query)
+    result = cursor.fetchone()[0]
+    return result
 
 
 def log_in(client_id, pswd):

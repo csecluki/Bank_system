@@ -293,11 +293,47 @@ class NewAccount(Frame):
     def submit(self):
         pswd = self.password_field.get()
         if len(pswd) > 0 and pswd == self.confirm_password_field.get():
-            connector.new_client(self.name_field.get(), pswd)
-            self.back()
+            user_id = connector.new_client(self.name_field.get(), pswd)
+            self.controller.switch_to("account_created", user_id)
+            for element in [self.name_field, self.password_field, self.confirm_password_field]:
+                element.delete(0, "end")
+                element.focus()
+            self.pack_forget()
         else:
             self.error_label.pack()
 
     def back(self):
+        for element in [self.name_field, self.password_field, self.confirm_password_field]:
+            element.delete(0, "end")
+            element.focus()
         self.pack_forget()
         self.controller.switch_to("back")
+
+
+class AccountCreated(Frame):
+
+    def __init__(self, window, controller):
+        Frame.__init__(self, window)
+        self.controller = controller
+
+    def data(self, client_id):
+
+        self.confirm_label = Label(self, text=f"Your account was succesfully created!")
+        self.confirm_label.pack()
+
+        self.info_label = Label(self, text=f"Your id is: {client_id}.")
+        self.info_label.pack()
+
+        self.main_menu_button = Button(self, text="Go to main menu", command=self.main_menu,
+                                       activebackground="grey", activeforeground="black")
+        self.main_menu_button.pack()
+
+    def open(self, client_id):
+        self.data(client_id)
+        self.pack()
+
+    def main_menu(self):
+        for element in [self.confirm_label, self.info_label, self.main_menu_button]:
+            element.destroy()
+        self.pack_forget()
+        self.controller.switch_to("main_menu")
